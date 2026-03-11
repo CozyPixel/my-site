@@ -1,35 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Моя страница</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Победа 🚀</title>
     <style>
-        <body>
-    <div class="card">
-        <h1>ПОБЕДА! 🚀</h1>
-        <p>Я победил этот Гитхаб.</p>
-        <button onclick="changeColor()" style="padding: 10px 20px; font-size: 20px; cursor: pointer; background: #00ff88; border: none; border-radius: 10px;">
-            Жми сюда!
-        </button>
+        /* Базовые настройки */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #1a1a2e, #0f0f1a);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Карточка с эффектом стекла */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(90deg, #00ff88, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: 0.5s;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* Кнопка с неоновым свечением */
+        button {
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background: transparent;
+            color: #00ff88;
+            border: 2px solid #00ff88;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        button:hover {
+            background: #00ff88;
+            color: #0f0f1a;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <h1 id="title">ПОБЕДА! 🚀</h1>
+        <p>Сайт работает, код чистый, Гитхаб повержен.</p>
+        <button onclick="changeColor()">Магия цвета</button>
     </div>
 
     <script>
         function changeColor() {
-            const colors = ['#00ff88', '#ff0088', '#0088ff', '#ffff00', '#ff8800'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            document.querySelector('.card').style.borderColor = randomColor;
-            document.querySelector('.card').style.boxShadow = '0 0 20px ' + randomColor;
-            document.querySelector('h1').style.color = randomColor;
+            // Генерируем случайный цвет
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            
+            // Меняем заголовок
+            const title = document.getElementById('title');
+            title.style.background = `linear-gradient(90deg, ${randomColor}, #ffffff)`;
+            title.style.webkitBackgroundClip = 'text';
+            
+            // Меняем кнопку
+            const btn = document.querySelector('button');
+            btn.style.borderColor = randomColor;
+            btn.style.color = randomColor;
+            
+            // При наведении добавим свечение того же цвета
+            btn.onmouseover = () => {
+                btn.style.background = randomColor;
+                btn.style.color = '#000';
+                btn.style.boxShadow = `0 0 30px ${randomColor}`;
+            };
+            btn.onmouseout = () => {
+                btn.style.background = 'transparent';
+                btn.style.color = randomColor;
+                btn.style.boxShadow = 'none';
+            };
         }
     </script>
-</body>
-        h1 { font-size: 50px; }
-        .box { border: 2px solid #00ff00; display: inline-block; padding: 20px; }
-    </style>
-</head>
-<body>
-    <div class="box">
-        <h1>ПРИВЕТ! 🚀</h1>
-        <p>Это мой первый сайт, и он РАБОТАЕТ БЕЗ ОШИБОК!</p>
-    </div>
+
 </body>
 </html>
