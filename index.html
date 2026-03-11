@@ -3,113 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Победа 🚀</title>
+    <title>Мой AI Чат 🚀</title>
     <style>
-        /* Базовые настройки */
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             background: radial-gradient(circle at top right, #1a1a2e, #0f0f1a);
             color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
         }
 
-        /* Карточка с эффектом стекла */
+        /* Та самая карточка победы (уменьшим чуть-чуть) */
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 50px;
-            border-radius: 30px;
+            padding: 20px 40px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
-            max-width: 400px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
-            font-size: 3.5rem;
-            margin: 0 0 10px 0;
+            font-size: 2rem;
+            margin: 0;
             background: linear-gradient(90deg, #00ff88, #0088ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            transition: 0.5s;
         }
 
-        p {
-            font-size: 1.1rem;
-            color: #aaa;
-            margin-bottom: 30px;
+        /* Окно чата */
+        .chat-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
-        /* Кнопка с неоновым свечением */
+        #messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .user-msg {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #0088ff, #0055ff);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot-msg {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-bottom-left-radius: 2px;
+        }
+
+        /* Поле ввода */
+        .input-area {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #00ff88;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         button {
-            padding: 15px 35px;
-            font-size: 18px;
+            background: #00ff88;
+            border: none;
+            padding: 0 20px;
+            border-radius: 25px;
+            color: #0f0f1a;
             font-weight: bold;
             cursor: pointer;
-            background: transparent;
-            color: #00ff88;
-            border: 2px solid #00ff88;
-            border-radius: 50px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            outline: none;
+            transition: 0.3s;
         }
 
         button:hover {
-            background: #00ff88;
-            color: #0f0f1a;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
-            transform: translateY(-3px);
-        }
-
-        button:active {
-            transform: translateY(1px);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00ff88;
         }
     </style>
 </head>
 <body>
 
-    <div class="card" id="mainCard">
-        <h1 id="title">ПОБЕДА! 🚀</h1>
-        <p>Сайт работает, код чистый, Гитхаб повержен.</p>
-        <button onclick="changeColor()">Магия цвета</button>
+    <div class="card">
+        <h1>AI Чат Версия 1.0 🚀</h1>
+    </div>
+
+    <div class="chat-container">
+        <div id="messages">
+            <div class="message bot-msg">Привет! Я твой бот. Напиши мне что-нибудь, и я отвечу!</div>
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Ваше сообщение..." onkeypress="handleKey(event)">
+            <button onclick="sendMessage()">📤</button>
+        </div>
     </div>
 
     <script>
-        function changeColor() {
-            // Генерируем случайный цвет
-            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        function handleKey(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function addMessage(text, isUser) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user-msg' : 'bot-msg'}`;
+            msgDiv.innerText = text;
+            const container = document.getElementById('messages');
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
             
-            // Меняем заголовок
-            const title = document.getElementById('title');
-            title.style.background = `linear-gradient(90deg, ${randomColor}, #ffffff)`;
-            title.style.webkitBackgroundClip = 'text';
-            
-            // Меняем кнопку
-            const btn = document.querySelector('button');
-            btn.style.borderColor = randomColor;
-            btn.style.color = randomColor;
-            
-            // При наведении добавим свечение того же цвета
-            btn.onmouseover = () => {
-                btn.style.background = randomColor;
-                btn.style.color = '#000';
-                btn.style.boxShadow = `0 0 30px ${randomColor}`;
-            };
-            btn.onmouseout = () => {
-                btn.style.background = 'transparent';
-                btn.style.color = randomColor;
-                btn.style.boxShadow = 'none';
-            };
+            if (text === "") return;
+
+            addMessage(text, true);
+            input.value = "";
+
+            // Эффект "Бот думает"
+            setTimeout(() => {
+                const responses = [
+                    "Ого, звучит интересно!",
+                    "Я пока учусь, но твой код уже работает лучше моего!",
+                    "Ты настоящий хакер!",
+                    "Давай сделаем еще что-нибудь крутое?",
+                    "GitHub Pages — это мощь, правда?"
+                ];
+                const randomReply = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomReply, false);
+            }, 800);
         }
     </script>
-
 </body>
 </html>
