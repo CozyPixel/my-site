@@ -3,7 +3,25 @@
 <head>
     <title>Моя страница</title>
     <style>
-        body { background: #222; color: #00ff00; text-align: center; font-family: sans-serif; padding-top: 50px; }
+        <body>
+    <div class="card">
+        <h1>ПОБЕДА! 🚀</h1>
+        <p>Я победил этот Гитхаб.</p>
+        <button onclick="changeColor()" style="padding: 10px 20px; font-size: 20px; cursor: pointer; background: #00ff88; border: none; border-radius: 10px;">
+            Жми сюда!
+        </button>
+    </div>
+
+    <script>
+        function changeColor() {
+            const colors = ['#00ff88', '#ff0088', '#0088ff', '#ffff00', '#ff8800'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.querySelector('.card').style.borderColor = randomColor;
+            document.querySelector('.card').style.boxShadow = '0 0 20px ' + randomColor;
+            document.querySelector('h1').style.color = randomColor;
+        }
+    </script>
+</body>
         h1 { font-size: 50px; }
         .box { border: 2px solid #00ff00; display: inline-block; padding: 20px; }
     </style>
