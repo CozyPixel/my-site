@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой AI Чат 🚀</title>
+    <title>Мой AI Спутник 🚀</title>
     <style>
+        /* Основной стиль */
         body {
             margin: 0;
             padding: 20px;
@@ -17,12 +18,12 @@
             font-family: 'Segoe UI', Tahoma, sans-serif;
         }
 
-        /* Та самая карточка победы (уменьшим чуть-чуть) */
-        .card {
+        /* Карточка заголовка */
+        .header-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px 40px;
+            padding: 15px 30px;
             border-radius: 20px;
             text-align: center;
             margin-bottom: 20px;
@@ -30,7 +31,7 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin: 0;
             background: linear-gradient(90deg, #00ff88, #0088ff);
             -webkit-background-clip: text;
@@ -38,18 +39,18 @@
         }
 
         /* Окно чата */
-        .chat-container {
+        .chat-box {
             width: 100%;
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px;
             display: flex;
             flex-direction: column;
-            height: 500px;
-            overflow: hidden;
+            height: 550px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
         }
 
         #messages {
@@ -58,45 +59,47 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .message {
-            max-width: 80%;
-            padding: 12px 18px;
-            border-radius: 15px;
+        /* Сообщения */
+        .msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
             font-size: 0.95rem;
             line-height: 1.4;
+            word-wrap: break-word;
         }
 
-        .user-msg {
+        .user {
             align-self: flex-end;
             background: linear-gradient(135deg, #0088ff, #0055ff);
             color: white;
-            border-bottom-right-radius: 2px;
+            border-bottom-right-radius: 4px;
         }
 
-        .bot-msg {
+        .bot {
             align-self: flex-start;
             background: rgba(255, 255, 255, 0.1);
             color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-bottom-left-radius: 2px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-bottom-left-radius: 4px;
         }
 
         /* Поле ввода */
         .input-area {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         input {
             flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 18px;
             border-radius: 25px;
             color: white;
             outline: none;
@@ -105,77 +108,96 @@
 
         input:focus {
             border-color: #00ff88;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         button {
             background: #00ff88;
             border: none;
-            padding: 0 20px;
-            border-radius: 25px;
-            color: #0f0f1a;
-            font-weight: bold;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             cursor: pointer;
+            font-size: 1.2rem;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             box-shadow: 0 0 15px #00ff88;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>AI Чат Версия 1.0 🚀</h1>
+    <div class="header-card">
+        <h1>GEMINI AI CHAT 🚀</h1>
     </div>
 
-    <div class="chat-container">
+    <div class="chat-box">
         <div id="messages">
-            <div class="message bot-msg">Привет! Я твой бот. Напиши мне что-нибудь, и я отвечу!</div>
+            <div class="msg bot">Привет! Я твой персональный ИИ. Теперь я работаю прямо на твоем сайте. Спроси меня о чем угодно!</div>
         </div>
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="Ваше сообщение..." onkeypress="handleKey(event)">
-            <button onclick="sendMessage()">📤</button>
+            <input type="text" id="userInput" placeholder="Напиши сообщение..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">➤</button>
         </div>
     </div>
 
     <script>
-        function handleKey(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
+        // --- НАСТРОЙКИ ---
+        const API_KEY = "ВСТАВЬ_СВОЙ_КЛЮЧ_ОТ_GOOGLE_СЮДА"; 
+        // ----------------
 
-        function addMessage(text, isUser) {
+        function addMessage(text, type) {
             const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${isUser ? 'user-msg' : 'bot-msg'}`;
+            msgDiv.className = `msg ${type}`;
             msgDiv.innerText = text;
             const container = document.getElementById('messages');
             container.appendChild(msgDiv);
             container.scrollTop = container.scrollHeight;
+            return msgDiv;
         }
 
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('userInput');
             const text = input.value.trim();
-            
-            if (text === "") return;
 
-            addMessage(text, true);
+            if (!text) return;
+            if (API_KEY.includes("ВСТАВЬ_СВОЙ")) {
+                alert("Ошибка: Сначала вставь свой API Key в код!");
+                return;
+            }
+
+            addMessage(text, 'user');
             input.value = "";
 
-            // Эффект "Бот думает"
-            setTimeout(() => {
-                const responses = [
-                    "Ого, звучит интересно!",
-                    "Я пока учусь, но твой код уже работает лучше моего!",
-                    "Ты настоящий хакер!",
-                    "Давай сделаем еще что-нибудь крутое?",
-                    "GitHub Pages — это мощь, правда?"
-                ];
-                const randomReply = responses[Math.floor(Math.random() * responses.length)];
-                addMessage(randomReply, false);
-            }, 800);
+            // Создаем заглушку для ответа бота
+            const botMsgDiv = addMessage("Думаю...", 'bot');
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: text }] }]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    botMsgDiv.innerText = data.candidates[0].content.parts[0].text;
+                } else {
+                    botMsgDiv.innerText = "Ошибка: Google не смог ответить. Проверь лимиты ключа.";
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                botMsgDiv.innerText = "Ошибка связи. Проверь интернет или API ключ.";
+            }
         }
     </script>
 </body>
