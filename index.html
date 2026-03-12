@@ -3,38 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groq Forest AI 🌲⚡</title>
+    <title>Groq Foggy Forest 🌲🌫️</title>
     <style>
-        /* Стиль: Густой лес + Звездное небо + Центрирование */
+        /* Основной стиль с твоей новой картинкой */
         body {
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
             height: 100vh; width: 100vw; overflow: hidden;
-            background-image: linear-gradient(to bottom, rgba(5, 10, 20, 0.7), rgba(5, 15, 10, 0.8)), 
-                              url('https://images.unsplash.com/photo-1596328323671-5589e4c845b1?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+            
+            /* Используем твое изображение. 
+               Если картинка лежит в той же папке на GitHub, путь будет 'image_113779.jpg' */
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
+                              url('image_113779.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            
             color: #e0e0e0; font-family: 'Segoe UI', sans-serif;
         }
 
         .app-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 600px; padding: 20px; }
 
         .header-card {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 35px; border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         h1 {
             font-size: 1.5rem; margin: 0;
-            background: linear-gradient(90deg, #2ecc71, #3498db); 
+            /* Сделал градиент чуть более "туманным" под стать картинке */
+            background: linear-gradient(90deg, #bdc3c7, #2c3e50); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-transform: uppercase; letter-spacing: 2px;
         }
 
         .chat-box {
-            width: 100%; background: rgba(10, 15, 20, 0.75);
+            width: 100%; 
+            /* Сделал фон чата чуть темнее, чтобы текст на светлом тумане читался идеально */
+            background: rgba(20, 25, 30, 0.85);
             backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 30px; display: flex; flex-direction: column;
-            height: 65vh; max-height: 700px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            height: 65vh; max-height: 700px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             overflow: hidden;
         }
 
@@ -43,23 +53,25 @@
         .msg { max-width: 80%; padding: 14px 18px; border-radius: 20px; font-size: 1rem; line-height: 1.5; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .user { align-self: flex-end; background: linear-gradient(135deg, #3498db, #2980b9); color: white; border-bottom-right-radius: 5px; }
-        .bot { align-self: flex-start; background: rgba(255, 255, 255, 0.08); color: #f0f0f0; border-bottom-left-radius: 5px; }
+        /* Цвета сообщений в тон туманному лесу */
+        .user { align-self: flex-end; background: linear-gradient(135deg, #7f8c8d, #34495e); color: white; border-bottom-right-radius: 5px; }
+        .bot { align-self: flex-start; background: rgba(255, 255, 255, 0.1); color: #f0f0f0; border-bottom-left-radius: 5px; border: 1px solid rgba(255,255,255,0.05); }
 
-        .input-area { padding: 15px 20px; background: rgba(0, 0, 0, 0.3); display: flex; gap: 10px; }
+        .input-area { padding: 15px 20px; background: rgba(0, 0, 0, 0.4); display: flex; gap: 10px; }
         input { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 20px; border-radius: 30px; color: white; outline: none; }
-        button { background: #2ecc71; border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        button:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(46, 204, 113, 0.4); }
+        
+        button { background: #7f8c8d; border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        button:hover { transform: scale(1.1); background: #95a5a6; box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <div class="header-card"><h1>Groq Forest 🌲</h1></div>
+        <div class="header-card"><h1>Mist Oracle 🌫️</h1></div>
         <div class="chat-box">
-            <div id="messages"><div class="msg bot">Привет! Я твой старый знакомый на новом движке Groq. Попробуй написать мне что-нибудь! 🚀</div></div>
+            <div id="messages"><div class="msg bot">Я пробудился среди туманных елей. О чем ты хочешь спросить оракула? 🌲💨</div></div>
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="Напиши лесу..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <input type="text" id="userInput" placeholder="Голос в тумане..." onkeypress="if(event.key==='Enter') sendMessage()">
                 <button onclick="sendMessage()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
                 </button>
@@ -68,8 +80,8 @@
     </div>
 
     <script>
-        // ВСТАВЬ СВОЙ КЛЮЧ ИЗ СКРИНШОТА (gsk_...)
-        const GROQ_API_KEY = "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";
+        // НЕ ЗАБУДЬ ВСТАВИТЬ СВОЙ КЛЮЧ
+        const GROQ_API_KEY = "ВСТАВЬ_СВОЙ_КЛЮЧ_ЗДЕСЬ";
 
         function addMessage(text, type) {
             const msgDiv = document.createElement('div');
@@ -88,7 +100,7 @@
 
             addMessage(text, 'user');
             input.value = "";
-            const botMsgDiv = addMessage("Groq думает молниеносно...", 'bot');
+            const botMsgDiv = addMessage("Туман сгущается...", 'bot');
 
             try {
                 const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -107,11 +119,10 @@
                 if (data.choices && data.choices[0].message.content) {
                     botMsgDiv.innerText = data.choices[0].message.content;
                 } else {
-                    botMsgDiv.innerText = "Ошибка: Groq не ответил. Проверь консоль (F12).";
-                    console.error(data);
+                    botMsgDiv.innerText = "Тишина... Проверь ключ оракула.";
                 }
             } catch (error) {
-                botMsgDiv.innerText = "Ошибка сети. Возможно, нужен VPN.";
+                botMsgDiv.innerText = "Ветер оборвал связь.";
                 console.error(error);
             }
         }
